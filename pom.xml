@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ca.uhn.hapi.fhir.legacy</groupId>
+  <artifactId>hapi-fhir-basic</artifactId>
+  <packaging>jar</packaging>
+  <version>2.5</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>ca.uhn.hapi.fhir</groupId>
+      <artifactId>hapi-fhir-base</artifactId>
+      <version>2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>ca.uhn.hapi.fhir</groupId>
+      <artifactId>hapi-fhir-structures-dstu</artifactId>
+      <version>2.5</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <artifactSet>
+                <excludes>
+                  <!-- Uncomment this to create a basic jar that excludes dependencies -->
+                  <!-- <exclude>com.google.code.gson:gson</exclude>
+                  <exclude>org.codehaus.woodstox:woodstox-core-asl</exclude>
+                  <exclude>javax.xml.stream:stax-api</exclude>
+                  <exclude>org.codehaus.woodstox:stax2-api</exclude>
+                  <exclude>org.apache.commons:commons-lang3</exclude>
+                  <exclude>commons-codec:commons-codec</exclude>
+                  <exclude>commons-io:commons-io</exclude>
+                  <exclude>org.slf4j:*</exclude>
+                  <exclude>org.apache.httpcomponents:*</exclude>-->
+                </excludes>
+              </artifactSet>
+              <relocations>
+                <relocation>
+                  <pattern>ca.uhn.fhir</pattern>
+                  <shadedPattern>ca.uhn.fhir.legacy</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>org.hl7.fhir</pattern>
+                  <shadedPattern>org.hl7.fhir.legacy</shadedPattern>
+                </relocation>
+              </relocations>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
